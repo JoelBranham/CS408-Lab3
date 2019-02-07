@@ -62,24 +62,24 @@ public class CryptoLogicActivity extends AppCompatActivity {
         }
         else{
             TextView guessTextView = (TextView) findViewById(R.id.guessEditText);
-            char guessedLetter = guessTextView.getText().charAt(0);
+            if (guessTextView.getText().length() > 0){
+                char guessedLetter = guessTextView.getText().charAt(0);
+                if (mysteryWord.charAt(correctGuessedLetters.size()) == guessedLetter){
+                    correctGuessedLetters.add(guessedLetter);
+                }
 
+                totalGuesses++;
 
-            if (mysteryWord.charAt(correctGuessedLetters.size()) == guessedLetter){
-                correctGuessedLetters.add(guessedLetter);
+                if (correctGuessedLetters.size() == mysteryWord.length()){
+                    gameover = true;
+                    promptForNewGame();
+                }
+
+                updateCorrectTextView();
+                updateIncorrectTextView();
+                updateGuessedTextView();
+                clearGuessEditText();
             }
-
-            totalGuesses++;
-
-            if (correctGuessedLetters.size() == mysteryWord.length()){
-                gameover = true;
-                promptForNewGame();
-            }
-
-            updateCorrectTextView();
-            updateIncorrectTextView();
-            updateGuessedTextView();
-            clearGuessEditText();
         }
     }
 
@@ -100,6 +100,7 @@ public class CryptoLogicActivity extends AppCompatActivity {
         updateCorrectTextView();
         updateIncorrectTextView();
         clearGuessEditText();
+        updateGuessButtonText();
     }
 
     private void updateGuessButtonText(){
