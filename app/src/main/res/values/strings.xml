@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Lab3</string>
+    <string name="action_settings">Settings</string>
+    <string name="introTextView">Try to guess the secret word, one letter at a time.</string>
+    <string name="mystery_word">Mystery Word:</string>
+    <string name="enter_your_guess_here">Enter your guess here.</string>
+    <string name="button">Button</string>
+    <string name="guessed_letters">Guessed Letters:</string>
+    <string name="scrambled_word">Scrambled Word:</string>
+    <string name="textview">TextView</string>
+    <string name="incorrect_guesses">Incorrect Guesses:</string>
+    <string name="correct_guesses">Correct Guesses:</string>
+</resources>
