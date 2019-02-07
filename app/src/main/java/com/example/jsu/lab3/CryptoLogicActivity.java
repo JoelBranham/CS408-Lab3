@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.*;
@@ -15,13 +16,15 @@ import java.util.*;
 public class CryptoLogicActivity extends AppCompatActivity {
 
     private ArrayList<String> secretWords;
-    private ArrayList<Character> guessedLetters;
+    private ArrayList<Character> correctGuessedLetters;
     private Random random;
 
     private int totalGuesses;
-    private int correctGuesses;
 
     private String mysteryWord;
+    private String scrambledWord;
+
+    private boolean gameover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,58 +43,98 @@ public class CryptoLogicActivity extends AppCompatActivity {
         });
 
         secretWords = new ArrayList(Arrays.asList("APPLE", "BANANA", "CARROT", "WATERMELON", "ORANGE", "GRAPE"));
-        guessedLetters = new ArrayList<Character>();
-
         random = new Random();
-        selectMysteryWord();
-
-        totalGuesses = correctGuesses = 0;
+        reset();
     }
 
     private void selectMysteryWord(){
-        String word = secretWords.get(random.nextInt(secretWords.size()));
-        mysteryWord = "";
-        ArrayList<String> splitWord = new ArrayList(Arrays.asList(word.split("")));
+        mysteryWord = secretWords.get(random.nextInt(secretWords.size()));
+        scrambledWord = "";
+        ArrayList<String> splitWord = new ArrayList(Arrays.asList(mysteryWord.split("")));
         Collections.shuffle(splitWord);
         for (String c : splitWord)
-            mysteryWord += c;
+            scrambledWord += c;
     }
 
     public void guessLetter(View v){
-        TextView guessTextView = (TextView) findViewById(R.id.guessEditText);
-        char guessedLetter = guessTextView.getText().charAt(0);
-
-        if (!guessedLetters.contains(guessedLetter)){
-            guessedLetters.add(guessedLetter);
+        if (gameover){
+            reset();
         }
+        else{
+            TextView guessTextView = (TextView) findViewById(R.id.guessEditText);
+            char guessedLetter = guessTextView.getText().charAt(0);
 
-        for (char c: mysteryWord.toCharArray()){
-            if (c == guessedLetter){
-                correctGuesses++;
+
+            if (mysteryWord.charAt(correctGuessedLetters.size()) == guessedLetter){
+                correctGuessedLetters.add(guessedLetter);
             }
+
+            totalGuesses++;
+
+            if (correctGuessedLetters.size() == mysteryWord.length()){
+                gameover = true;
+                promptForNewGame();
+            }
+
+            updateCorrectTextView();
+            updateIncorrectTextView();
+            updateGuessedTextView();
+            clearGuessEditText();
         }
-        totalGuesses++;
-
-        if (correctGuesses == mysteryWord.length()){
-            gameover();
-        }
-
-        updateTextViews();
-
     }
 
-    private void gameover(){
+    private void promptForNewGame(){
+        Button guessButton = (Button) findViewById(R.id.guessButton);
+        guessButton.setText("New Game");
+    }
 
+    private void reset(){
+        gameover = false;
+        totalGuesses = 0;
+        correctGuessedLetters = new ArrayList<Character>();
 
-
-        //happens at end
         selectMysteryWord();
+
+        updateScrambledWordTextView();
+        updateGuessedTextView();
+        updateCorrectTextView();
+        updateIncorrectTextView();
+        clearGuessEditText();
     }
 
-    private void updateTextViews(){
-
+    private void updateGuessButtonText(){
+        Button guessButton = (Button) findViewById(R.id.guessButton);
+        guessButton.setText("Guess");
     }
 
+    private void updateScrambledWordTextView(){
+        TextView scrambledWordTextView = (TextView) findViewById(R.id.scrambledWordTextView);
+        scrambledWordTextView.setText(scrambledWord);
+    }
+
+    private void updateGuessedTextView(){
+        TextView guessedTextView = (TextView) findViewById(R.id.guessedText);
+        String s = "";
+        for (char c: correctGuessedLetters){
+            s += c + " ";
+        }
+        guessedTextView.setText(s);
+    }
+
+    private void updateCorrectTextView(){
+        TextView numberCorrectTextView = (TextView) findViewById(R.id.numberCorrectTextView);
+        numberCorrectTextView.setText(Integer.toString(correctGuessedLetters.size()));
+    }
+
+    private void updateIncorrectTextView(){
+        TextView numberIncorrecttTextView = (TextView) findViewById(R.id.incorrectTextView);
+        numberIncorrecttTextView.setText(Integer.toString(totalGuesses - correctGuessedLetters.size()));
+    }
+
+    private void clearGuessEditText(){
+        TextView guessEditText = (TextView) findViewById(R.id.guessEditText);
+        guessEditText.setText("");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
