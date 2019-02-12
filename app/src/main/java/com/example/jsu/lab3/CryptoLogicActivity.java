@@ -42,7 +42,7 @@ public class CryptoLogicActivity extends AppCompatActivity {
             }
         });
 
-        secretWords = new ArrayList(Arrays.asList("APPLE", "BANANA", "CARROT", "WATERMELON", "ORANGE", "GRAPE"));
+        secretWords = new ArrayList<String>(Arrays.asList("APPLE", "BANANA", "CARROT", "WATERMELON", "ORANGE", "GRAPE"));
         random = new Random();
         reset();
     }
@@ -50,13 +50,14 @@ public class CryptoLogicActivity extends AppCompatActivity {
     private void selectMysteryWord(){
         mysteryWord = secretWords.get(random.nextInt(secretWords.size()));
         scrambledWord = "";
-        ArrayList<String> splitWord = new ArrayList(Arrays.asList(mysteryWord.split("")));
+        ArrayList<String> splitWord = new ArrayList<String>(Arrays.asList(mysteryWord.split("")));
         Collections.shuffle(splitWord);
         for (String c : splitWord)
             scrambledWord += c;
     }
 
     public void guessLetter(View v){
+
         if (gameover){
             reset();
         }
@@ -85,7 +86,7 @@ public class CryptoLogicActivity extends AppCompatActivity {
 
     private void promptForNewGame(){
         Button guessButton = (Button) findViewById(R.id.guessButton);
-        guessButton.setText("New Game");
+        guessButton.setText(R.string.newGame);
     }
 
     private void reset(){
@@ -105,7 +106,7 @@ public class CryptoLogicActivity extends AppCompatActivity {
 
     private void updateGuessButtonText(){
         Button guessButton = (Button) findViewById(R.id.guessButton);
-        guessButton.setText("Guess");
+        guessButton.setText(R.string.guess);
     }
 
     private void updateScrambledWordTextView(){
@@ -119,17 +120,17 @@ public class CryptoLogicActivity extends AppCompatActivity {
         for (char c: correctGuessedLetters){
             s += c + " ";
         }
-        guessedTextView.setText(s);
+        guessedTextView.setText(getString(R.string.guessed_letters, s));
     }
 
     private void updateCorrectTextView(){
         TextView numberCorrectTextView = (TextView) findViewById(R.id.numberCorrectTextView);
-        numberCorrectTextView.setText(Integer.toString(correctGuessedLetters.size()));
+        numberCorrectTextView.setText(getString(R.string.correct_guesses, correctGuessedLetters.size()));
     }
 
     private void updateIncorrectTextView(){
         TextView numberIncorrecttTextView = (TextView) findViewById(R.id.incorrectTextView);
-        numberIncorrecttTextView.setText(Integer.toString(totalGuesses - correctGuessedLetters.size()));
+        numberIncorrecttTextView.setText(getString(R.string.incorrect_guesses, totalGuesses - correctGuessedLetters.size()));
     }
 
     private void clearGuessEditText(){
