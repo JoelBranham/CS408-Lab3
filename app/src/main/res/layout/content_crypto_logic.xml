@@ -10,50 +10,59 @@
 
     <TextView
         android:id="@+id/introTextView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="monospace"
         android:text="@string/introTextView"
         android:textAlignment="center"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/scrambledWordTextView"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.042"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/scrambledWordTextView"
-        android:layout_width="278dp"
-        android:layout_height="30dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="monospace"
         android:text="@string/scrambled_word"
         android:textAlignment="viewStart"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guessedText"
+        app:layout_constraintBottom_toTopOf="@+id/correctGuessedTextView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/introTextView" />
 
     <EditText
         android:id="@+id/guessEditText"
-        android:layout_width="154dp"
+        android:layout_width="242dp"
         android:layout_height="49dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:fontFamily="monospace"
         android:hint="@string/enter_your_guess_here"
         android:importantForAutofill="no"
         android:inputType="textCapCharacters|textPersonName"
         android:maxLength="1"
         android:textAlignment="viewStart"
-        android:textSize="14sp"
+        android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guessButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/numberCorrectTextView"
+        app:layout_constraintTop_toBottomOf="@+id/mysteryWordTextView"
         tools:targetApi="o" />
 
     <Button
@@ -62,6 +71,7 @@
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
         android:elevation="0dp"
+        android:fontFamily="monospace"
         android:onClick="guessLetter"
         android:text="@string/guess"
         app:layout_constraintBottom_toBottomOf="@+id/guessEditText"
@@ -70,40 +80,44 @@
         tools:text="Guess" />
 
     <TextView
-        android:id="@+id/guessedText"
-        android:layout_width="277dp"
-        android:layout_height="30dp"
-        android:text="@string/guessed_letters"
+        android:id="@+id/correctGuessedTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="monospace"
+        android:text="@string/correct_guesses"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/numberCorrectTextView"
+        app:layout_constraintBottom_toTopOf="@+id/mysteryWordTextView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/scrambledWordTextView" />
 
     <TextView
-        android:id="@+id/numberCorrectTextView"
-        android:layout_width="131dp"
+        android:id="@+id/mysteryWordTextView"
+        android:layout_width="0dp"
         android:layout_height="26dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/correct_guesses"
-        android:textSize="14sp"
+        android:fontFamily="monospace"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/guessEditText"
         app:layout_constraintEnd_toStartOf="@+id/incorrectTextView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/guessedText" />
+        app:layout_constraintTop_toBottomOf="@+id/correctGuessedTextView" />
 
     <TextView
         android:id="@+id/incorrectTextView"
-        android:layout_width="138dp"
+        android:layout_width="0dp"
         android:layout_height="26dp"
-        android:text="@string/incorrect_guesses"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/guessEditText"
+        android:fontFamily="monospace"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/mysteryWordTextView"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/numberCorrectTextView"
-        app:layout_constraintTop_toBottomOf="@+id/guessedText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/mysteryWordTextView" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -120,17 +134,10 @@
         app:layout_constraintGuide_end="20dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="48dp" />
-
-    <android.support.constraint.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="210dp" />
+        app:layout_constraintGuide_end="339dp" />
 
 </android.support.constraint.ConstraintLayout>

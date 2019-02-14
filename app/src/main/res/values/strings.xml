@@ -2,12 +2,12 @@
     <string name="app_name">Crypto-Logic</string>
     <string name="action_settings">Settings</string>
     <string name="introTextView">Try to guess the secret word, one letter at a time.</string>
-    <string name="mystery_word">Mystery Word:</string>
+    <string name="mystery_word">Mystery Word: %1$s</string>
     <string name="enter_your_guess_here">Enter your guess here.</string>
     <string name="guess">Guess</string>
     <string name="newGame">New Game</string>
-    <string name="guessed_letters">Guessed Letters: %1$s</string>
-    <string name="scrambled_word">Scrambled Word:</string>
+    <string name="correct_letters">Correct Letters: %1$s</string>
+    <string name="scrambled_word">Scrambled Word: %1$s</string>
     <string name="textview">TextView</string>
     <string name="incorrect_guesses">Incorrect Guesses: %1$d</string>
     <string name="correct_guesses">Correct Guesses: %1$d</string>
